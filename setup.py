@@ -10,7 +10,7 @@ setup(
     version='1.0',
     description='Wikipedia parser for Python',
     long_description='Extract Wikipedia pages, revisions, or users',
-    url='https://github.com/jortdevreeze/Wikipedia',
+    url='https://github.com/jortdevreeze/ParseWiki',
     
     # Author details
     author='Jort de Vreeze',
