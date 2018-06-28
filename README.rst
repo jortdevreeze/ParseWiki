@@ -26,53 +26,53 @@ The two examples below imports the wiki library and instantiates the Parse class
 
   >>> from parsewiki import page
  
-  >>> page = page.Parse(23862)
-  >>> page.extract()
+  >>> wiki = page.Parse(23862)
+  >>> wiki.extract()
 
 or
 
 .. code:: python
 
-  >>> page = page.Parse("Python (Programming Language)")
-  >>> page.extract()
+  >>> wiki = page.Parse("Python (Programming Language)")
+  >>> wiki.extract()
 
 The default language is English, but if you want to retrieve the German and French version as well use:
 
 .. code:: python
 
-  >>> page.extract(lang="de")
-  >>> page.extract(lang="fr")
+  >>> wiki.extract(lang="de")
+  >>> wiki.extract(lang="fr")
 
 To get the respective titles of this Wiki in each language:
 
 .. code:: python
 
-  >> page.get_title()
+  >> wiki.get_title()
   # 'Python (programming language)'
-  >> page.get_title(lang="de")
+  >> wiki.get_title(lang="de")
   # Python (Programmiersprache)
-  >> page.get_title(lang="fr")
+  >> wiki.get_title(lang="fr")
   # Python (langage)
 
 To get the plain text from the Wikipedia page:
 
 .. code:: python
 
-  >> page.get_text()
+  >> wiki.get_text()
   # 'Summary.\nPython is a widely used high-level programming language for ... '
 
 Or the just the first two paragraphs from the German page, without any headers and references in the text:
 
 .. code:: python
 
-  >> page.get_text(lang="de", seq=[1,2], headers=False, references=False)
+  >> wiki.get_text(lang="de", seq=[1,2], headers=False, references=False)
   # 'Python ([ˈpaɪθn̩], [ˈpaɪθɑn], auf Deutsch auch [ˈpyːtɔn]), ist eine universelle, üblicherweise ... '
 
 It's also possible to get a list of all the headers in the text, or a list of all the references:
 
 .. code:: python
 
-  >> page.get_headers()
+  >> wiki.get_headers()
   # ['Summary',
   #  'History',
   #  'Features and philosophy',
@@ -84,25 +84,25 @@ The parser is not restricted to extract the current Wikipedia page, but it also 
     
 .. code:: python
 
-  >> page.extract_revisions_by_date(first='2017-09-01', last='2017-09-10')
-  >> page.extract_revisions_by_user(username='Username')
+  >> wiki.extract_revisions_by_date(first='2017-09-01', last='2017-09-10')
+  >> wiki.extract_revisions_by_user(username='Username')
 
 To get a list of all authors who contributed to the development of this page:
 
 .. code:: python
 
-  >> page.extract_users()
-  >> page.extract_users(lang="de")
-  >> page.extract_users(lang="fr")
+  >> wiki.extract_users()
+  >> wiki.extract_users(lang="de")
+  >> wiki.extract_users(lang="fr")
   
   # Get all authors who contributed in the German page
-  >> users_de = page.get_users(lang="de")
+  >> users_de = wiki.get_users(lang="de")
   
   # Get only registered authors who contributed in the French page
-  >> users_fr = page.get_users(lang="fr", whom='registered')
+  >> users_fr = wiki.get_users(lang="fr", whom='registered')
   
   # Get only anonymous authors who contributed in the English page
-  >> users_en = page.get_users(whom='anonymous')
+  >> users_en = wiki.get_users(whom='anonymous')
 
 To get a list of which authors contributed (i.e., the number of edits) the most on the French page is easy using the Series data structure from Pandas:
 
