@@ -7,7 +7,7 @@ from setuptools import setup
 
 setup(
     name='parsewiki',
-    version='1.0',
+    version='1.0.2',
     description='Wikipedia parser for Python',
     long_description='Extract Wikipedia pages, revisions, or users',
     url='https://github.com/jortdevreeze/ParseWiki',
@@ -30,5 +30,5 @@ setup(
     
     packages=['parsewiki'],
 
-    install_requires=['datetime', 'bs4', 'requests']
+    install_requires=['datetime', 'python-dateutil', 'bs4', 'requests']
 )
