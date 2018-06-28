@@ -33,7 +33,7 @@ or
 
 .. code:: python
 
-  >>> page = wiki.Parse("Python (Programming Language)")
+  >>> page = page.Parse("Python (Programming Language)")
   >>> page.extract()
 
 The default language is English, but if you want to retrieve the German and French version as well use:
