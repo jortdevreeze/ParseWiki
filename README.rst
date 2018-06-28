@@ -1,12 +1,12 @@
-Parse-Wiki
+ParseWiki
 =========
 
-Parse-Wiki is a Python library that parses Wikipedia pages and saves the page structure. This library extracts all text, headers, references for a specified Wikipedia page.
+ParseWiki is a Python library that parses Wikipedia pages and saves the page structure. This library extracts all text, headers, references for a specified Wikipedia page.
 
 Installation
 ------------
 
-To install Parse-Wiki, simply run:
+To install ParseWiki, simply run:
 
 ::
 
