@@ -1,0 +1,539 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>parsewiki package &mdash; parsewiki 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="parsewiki 1.0 documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="parsewiki-package">
+<h1>parsewiki package<a class="headerlink" href="#parsewiki-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-parsewiki.page">
+<span id="parsewiki-page-module"></span><h2>parsewiki.page module<a class="headerlink" href="#module-parsewiki.page" title="Permalink to this headline">¶</a></h2>
+<p>&#64;author: jdevreeze</p>
+<dl class="class">
+<dt id="parsewiki.page.Parse">
+<em class="property">class </em><code class="descclassname">parsewiki.page.</code><code class="descname">Parse</code><span class="sig-paren">(</span><em>wiki=None</em>, <em>lang='en'</em>, <em>ignore=True</em><span class="sig-paren">)</span><a class="headerlink" href="#parsewiki.page.Parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>This class parses Wikipedia pages and saves its content in a JSON format</p>
+<dl class="method">
+<dt id="parsewiki.page.Parse.extract">
+<code class="descname">extract</code><span class="sig-paren">(</span><em>lang=None</em>, <em>lists=True</em><span class="sig-paren">)</span><a class="headerlink" href="#parsewiki.page.Parse.extract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract content from the current wikipedia page.</p>
+<p>Retrieve content from a Wikipedia pages in a specified language. The content
+is parsed and all html tags are stripped.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>lang: The article language (default None).
+lists: Include lists in text (default True).</dd>
+<dt>Returns:</dt>
+<dd>An instance of the ParseWiki class is returned.</dd>
+<dt>Raises:</dt>
+<dd>ValueError: The requested page is not available in this language.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="parsewiki.page.Parse.extract_revision">
+<code class="descname">extract_revision</code><span class="sig-paren">(</span><em>lang=None</em>, <em>revid=None</em>, <em>date=None</em>, <em>lists=True</em>, <em>newest=False</em>, <em>empty=False</em><span class="sig-paren">)</span><a class="headerlink" href="#parsewiki.page.Parse.extract_revision" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract content from a single wikipedia revision page.</p>
+<p>Retrieve content from a Wikipedia revision pages in a specified language. The 
+content is parsed and all html tags are stripped.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">lang: The article language (default None).
+revid: The revision identifier (default None).
+date: The revision date in &#8216;Y-m-d&#8217; format (default None).
+lists: Include lists in text (default True).
+newest: Search for the newest or the oldest revision for the specified</p>
+<blockquote>
+<div>date (default False).</div></blockquote>
+<p class="last">empty: If set as True it will only extract the metadata (default False).</p>
+</dd>
+<dt>Returns:</dt>
+<dd>An instance of the ParseWiki class is returned.</dd>
+<dt>Raises:</dt>
+<dd>ValueError: A revision id or revision date must be specified.
+ValueError: The argument &#8216;newest&#8217; must be a boolean value.
+ValueError: The sepcified date is not valid.
+ValueError: The sepcified date could not be converted to a ISO 8601 timestamp.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="parsewiki.page.Parse.extract_revisions_by_date">
+<code class="descname">extract_revisions_by_date</code><span class="sig-paren">(</span><em>lang=None</em>, <em>first=None</em>, <em>last=None</em>, <em>lists=True</em>, <em>empty=False</em><span class="sig-paren">)</span><a class="headerlink" href="#parsewiki.page.Parse.extract_revisions_by_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract all revisions made within a specified timeframe.</p>
+<p>Retrieve all revisions made within a specified timeframe in a specified language. 
+The content is parsed and all html tags are stripped. The specified dates should 
+be in the &#8216;Y-m-d&#8217; format.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">lang: The article language (default None).
+first: The first date to look for (default None).
+last: The last date to look for (default None). If no date is specified it</p>
+<blockquote>
+<div>will only look for revisions done on the first date.</div></blockquote>
+<p class="last">lists: Include lists in text (default True).
+empty: If set as True it will only extract the metadata (default False).</p>
+</dd>
+<dt>Returns:</dt>
+<dd>An instance of the ParseWiki class is returned.</dd>
+<dt>Raises:</dt>
+<dd>ValueError: A valid start date must be specified.
+ValueError: A valid end date must be specified.
+ValueError: The specified dates are are newer than date of the main page.
+ValueError: The sepcified dates could not be converted to a ISO 8601 timestamp.
+ValueError: An unexpected error occured while connecting to Wikipedia.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="parsewiki.page.Parse.extract_revisions_by_user">
+<code class="descname">extract_revisions_by_user</code><span class="sig-paren">(</span><em>lang=None</em>, <em>username=None</em>, <em>lists=True</em>, <em>empty=False</em><span class="sig-paren">)</span><a class="headerlink" href="#parsewiki.page.Parse.extract_revisions_by_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract all revisions made by a Wikipedia user.</p>
+<p>Retrieve all revision made by a single user in a specified language. The 
+content is parsed and all html tags are stripped.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>lang: The article language (default None).
+username: The Wiki user to look for (default None).
+lists: Include lists in text (default True).
+empty: If set as True it will only extract the metadata (default False).</dd>
+<dt>Returns:</dt>
+<dd>An instance of the ParseWiki class is returned.</dd>
+<dt>Raises:</dt>
+<dd>ValueError: A valid username must be specified.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="parsewiki.page.Parse.extract_users">
+<code class="descname">extract_users</code><span class="sig-paren">(</span><em>lang=None</em><span class="sig-paren">)</span><a class="headerlink" href="#parsewiki.page.Parse.extract_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract all the users who have contributed to this page in a specified language.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>lang: The article language (default None).</dd>
+<dt>Returns:</dt>
+<dd>An instance of the ParseWiki class is returned.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="parsewiki.page.Parse.get_date">
+<code class="descname">get_date</code><span class="sig-paren">(</span><em>lang=None</em>, <em>revid=None</em><span class="sig-paren">)</span><a class="headerlink" href="#parsewiki.page.Parse.get_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the date from a saved Wikipedia revision.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>lang: The article language (default None).
+revid: The revision identifier (default None).</dd>
+<dt>Returns:</dt>
+<dd>A string with the Wikipedia revision date for the specified language.</dd>
+<dt>Raises:</dt>
+<dd>ValueError: The requested revision id is not available.
+ValueError: The requested date is not saved in this language.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="parsewiki.page.Parse.get_differences">
+<code class="descname">get_differences</code><span class="sig-paren">(</span><em>lang=None</em>, <em>revid=None</em>, <em>date=None</em>, <em>compare=False</em><span class="sig-paren">)</span><a class="headerlink" href="#parsewiki.page.Parse.get_differences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract all the differences from a saved wikipedia page compared to its previous version.</p>
+<p>Retrieve the differences from a saved wikipedia page compared to its previous version 
+in a specified language. The differences are returned in a list.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>lang: The article language (default None).
+revid: The revision identifier (default None).
+date: The revision date (default None).
+compare: A flag to specify if the script should only return the difference or also the previous</dd>
+<dt>Returns:</dt>
+<dd>A list with all the differences used in the requested page, and optional a list with the original</dd>
+<dt>Raises:</dt>
+<dd>ValueError: Retrieving the differences of the current page are not supported yet.
+ValueError: The differences are not saved in this language.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="parsewiki.page.Parse.get_headers">
+<code class="descname">get_headers</code><span class="sig-paren">(</span><em>lang=None</em>, <em>revid=None</em>, <em>date=None</em><span class="sig-paren">)</span><a class="headerlink" href="#parsewiki.page.Parse.get_headers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract all the headers from a saved wikipedia page.</p>
+<p>Retrieve the headers from a Wikipedia page in a specified language. The 
+headers are returned in a list. Note that some headers are by default not 
+included (notes, references, and external links).</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>lang: The article language (default None).
+revid: The revision identifier (default None).
+date: The revision date (default None).</dd>
+<dt>Returns:</dt>
+<dd>A list with all the headers used in the article</dd>
+<dt>Raises:</dt>
+<dd>ValueError: The headers are not saved in this language.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="parsewiki.page.Parse.get_metadata">
+<code class="descname">get_metadata</code><span class="sig-paren">(</span><em>lang=None</em>, <em>revid=None</em><span class="sig-paren">)</span><a class="headerlink" href="#parsewiki.page.Parse.get_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the metadata from a saved Wikipedia page or revision.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>lang: The article language (default None).
+revid: The revision identifier (default None).</dd>
+<dt>Returns:</dt>
+<dd>A dict with all the metadata for the reqested page or revision is returned.</dd>
+<dt>Raises:</dt>
+<dd>The requested page or revision is not available.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="parsewiki.page.Parse.get_page">
+<code class="descname">get_page</code><span class="sig-paren">(</span><em>lang=None</em>, <em>revid=None</em><span class="sig-paren">)</span><a class="headerlink" href="#parsewiki.page.Parse.get_page" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the saved Wikipedia page in a JSON format.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>lang: The article language (default None).
+revid: The revision identifier (default None).</dd>
+<dt>Returns:</dt>
+<dd>A dict with all the saved data for the reqested page is returned.</dd>
+<dt>Raises:</dt>
+<dd>The requested page is not available.
+The requested revision is not available.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="parsewiki.page.Parse.get_pageid">
+<code class="descname">get_pageid</code><span class="sig-paren">(</span><em>lang=None</em>, <em>user=None</em>, <em>first=None</em>, <em>last=None</em><span class="sig-paren">)</span><a class="headerlink" href="#parsewiki.page.Parse.get_pageid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the page identifiers from saved Wikipedia revision pages.</p>
+<p>This method returns a list of all page identifiers belonging to a user,
+date or date range.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">lang: The article language (default None).
+user: An author name to look for (default None).
+first: The first date to look for (default None).
+last: The last date to look for (default None). If no date is specified it</p>
+<blockquote class="last">
+<div>will only look for revisions done on the first date.</div></blockquote>
+</dd>
+<dt>Returns:</dt>
+<dd>A list with page identifiers.</dd>
+<dt>Raises:</dt>
+<dd>ValueError: A valid author name must be specified.
+ValueError: A valid start date must be specified.
+ValueError: A valid end date must be specified.
+ValueError: The specified dates could not be converted to a ISO 8601 timestamp.
+ValueError: The start date is more recent than the last date.
+ValueError: The start date is more recent than the last date.
+ValueError: The requested title is not available in this language.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="parsewiki.page.Parse.get_pageviews">
+<code class="descname">get_pageviews</code><span class="sig-paren">(</span><em>lang=None</em>, <em>access='all-access'</em>, <em>agents='all-agents'</em>, <em>interval='daily'</em>, <em>first=None</em>, <em>last=None</em><span class="sig-paren">)</span><a class="headerlink" href="#parsewiki.page.Parse.get_pageviews" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of page views for the main Wikipedia page.</p>
+<p>This method relies on the REST v1 API from MediaWiki. This API is different
+from the API used for extracting the other data. The number of pageviews are
+only available from October 2015 until today.</p>
+<p>For documentation about this API, see:</p>
+<blockquote>
+<div><a class="reference external" href="https://wikimedia.org/api/rest_v1/">https://wikimedia.org/api/rest_v1/</a></div></blockquote>
+<p>Please note that page views can be extracted using the normal MediaWiki API,
+but it does not allow you to specify specific dates:</p>
+<p>For documentation about this option, see:</p>
+<blockquote>
+<div><a class="reference external" href="https://www.mediawiki.org/wiki/Extension:PageViewInfo">https://www.mediawiki.org/wiki/Extension:PageViewInfo</a></div></blockquote>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">lang: The article language (default None).
+access: If you want to filter by access method, use one of desktop, mobile-app or</p>
+<blockquote>
+<div>mobile-web. If you are interested in pageviews regardless of access method, 
+use all-access (Default).</div></blockquote>
+<dl class="docutils">
+<dt>agents: If you want to filter by agent type, use one of user, bot or spider. </dt>
+<dd>If you are interested in pageviews regardless of agent type, use 
+all-agents (Default)</dd>
+<dt>interval: The time unit for the response data. The only supported granularity </dt>
+<dd>for this endpoint is daily (Default) and monthly.</dd>
+</dl>
+<p>first: The first date to look for (default None).
+last: The last date to look for (default None). If no date is specified it</p>
+<blockquote class="last">
+<div>will only look for revisions done on the first date.</div></blockquote>
+</dd>
+<dt>Returns:</dt>
+<dd>A dict with the dates and the amount of page views for each date.</dd>
+<dt>Raises:</dt>
+<dd>ValueError: A valid access filter should be specified.
+ValueError: A valid agent filter should be specified.
+ValueError: A valid interval should be specified.
+ValueError: A valid start date must be specified.
+ValueError: A valid end date must be specified.
+ValueError: The specified dates could not be converted to a YYYYMMDD format.
+ValueError: The start date is more recent than the last date.
+ValueError: A valid start date must be specified.
+ValueError: An unexpected error occured while connecting to Wikipedia.
+ValueError: The request did not return any information.
+ValueError: The requested page is not saved in this language.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="parsewiki.page.Parse.get_previous">
+<code class="descname">get_previous</code><span class="sig-paren">(</span><em>lang</em>, <em>revid=None</em><span class="sig-paren">)</span><a class="headerlink" href="#parsewiki.page.Parse.get_previous" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the revid from a previous version of a Wikipedia revision 
+page in a specified language.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">lang: The article language (default None).
+revid: The revision identifier (default None). If no revid is specified</p>
+<blockquote class="last">
+<div>use the main page as a reference</div></blockquote>
+</dd>
+<dt>Returns:</dt>
+<dd>The revision identifier (int).</dd>
+<dt>Raises:</dt>
+<dd>ValueError: The page is not saved in this language.
+ValueError: The requested revision identifier is not available.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="parsewiki.page.Parse.get_references">
+<code class="descname">get_references</code><span class="sig-paren">(</span><em>lang=None</em>, <em>revid=None</em>, <em>date=None</em><span class="sig-paren">)</span><a class="headerlink" href="#parsewiki.page.Parse.get_references" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract all the references from a saved wikipedia page.</p>
+<p>Retrieve the references from a Wikipedia page in a specified language. The 
+references are returned in a list.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>lang: The article language (default None).
+revid: The revision identifier (default None).
+date: The revision date (default None).</dd>
+<dt>Returns:</dt>
+<dd>A list with all the references used in the article</dd>
+<dt>Raises:</dt>
+<dd>ValueError: The references are not saved in this language.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="parsewiki.page.Parse.get_text">
+<code class="descname">get_text</code><span class="sig-paren">(</span><em>lang=None</em>, <em>revid=None</em>, <em>date=None</em>, <em>start=0</em>, <em>length=None</em>, <em>seq=None</em>, <em>references=True</em>, <em>headers=True</em><span class="sig-paren">)</span><a class="headerlink" href="#parsewiki.page.Parse.get_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract the plain text from a saved wikipedia page or revision.</p>
+<p>Retrieve plain text from a saved Wikipedia page in a specified language. It can be
+specified whether the plain text should include reference numbers or headers.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">lang: The article language (default None).
+revid: The revision identifier (default None).
+date: The revision date (default None).
+start: The returned text will start at the start&#8217;th paragraph in the wiki, counting</p>
+<blockquote>
+<div>from zero (default 0).</div></blockquote>
+<dl class="docutils">
+<dt>length: If length is given and is positive, the text returned will contain at most the </dt>
+<dd>length of paragraphs beginning from start (default None).</dd>
+<dt>seq: The returned paragraphs is determined by a list containing a sequence of numbers, </dt>
+<dd>counting from one. This variable overwrites the start and length values assigned 
+(default None).</dd>
+</dl>
+<p class="last">references: Include reference numbers in text (default True).
+headers: Include headers in text (default True).</p>
+</dd>
+<dt>Returns:</dt>
+<dd>A string with the plain text.</dd>
+<dt>Raises:</dt>
+<dd>ValueError: The requested revision is empty.
+ValueError: The requested revision identifier is not available.
+ValueError: The requested revision date is not available.
+ValueError: The page is not saved in this language.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="parsewiki.page.Parse.get_title">
+<code class="descname">get_title</code><span class="sig-paren">(</span><em>lang=None</em><span class="sig-paren">)</span><a class="headerlink" href="#parsewiki.page.Parse.get_title" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the title from a saved Wikipedia page.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>lang: The article language (default None).</dd>
+<dt>Returns:</dt>
+<dd>A string with the Wikipedia page title in the specified language.</dd>
+<dt>Raises:</dt>
+<dd>ValueError: The requested title is not available in this language.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="parsewiki.page.Parse.get_user">
+<code class="descname">get_user</code><span class="sig-paren">(</span><em>lang=None</em>, <em>revid=None</em>, <em>date=None</em><span class="sig-paren">)</span><a class="headerlink" href="#parsewiki.page.Parse.get_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the user who made the Wikipedia revision.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>lang: The article language (default None).
+revid: The revision identifier (default None).
+date: The revision date (default None).</dd>
+<dt>Returns:</dt>
+<dd>A string with the username.</dd>
+<dt>Raises:</dt>
+<dd>ValueError: The requested revision id is not available.
+ValueError: Revision identifier or revision date are missing.
+ValueError: The requested date is not saved in this language.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="parsewiki.page.Parse.get_users">
+<code class="descname">get_users</code><span class="sig-paren">(</span><em>lang=None</em>, <em>whom='all'</em><span class="sig-paren">)</span><a class="headerlink" href="#parsewiki.page.Parse.get_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the user who made the Wikipedia revision.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>lang: The article language (default None).
+whom: Retrieve &#8216;registered&#8217;, &#8216;anonymous&#8217;, or &#8216;all&#8217; users (default &#8216;all&#8217;).</dd>
+<dt>Returns:</dt>
+<dd>A dict with the usernames and the amount of contributions.</dd>
+<dt>Raises:</dt>
+<dd>ValueError: The users who contributed to this page have not been extracted.
+ValueError: The type of users specified is not valid.
+ValueError: The requested page is not saved in this language.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="parsewiki.page.Parse.get_wiki">
+<code class="descname">get_wiki</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#parsewiki.page.Parse.get_wiki" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the saved Wikipedia data in a JSON format.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>A dict with all the saved data is returned.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="parsewiki.page.Parse.has_content">
+<code class="descname">has_content</code><span class="sig-paren">(</span><em>lang=None</em>, <em>revid=None</em>, <em>date=None</em><span class="sig-paren">)</span><a class="headerlink" href="#parsewiki.page.Parse.has_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method which checks whether a page or revision has content.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Args:</dt>
+<dd>lang: The article language (default None).
+revid: The revision identifier (default None).
+date: The revision date (default None).</dd>
+<dt>Returns:</dt>
+<dd>True if a page has content, otherwise false.</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-parsewiki">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-parsewiki" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">parsewiki package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-parsewiki.page">parsewiki.page module</a></li>
+<li><a class="reference internal" href="#module-parsewiki">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/parsewiki.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Jort de Vreeze.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/parsewiki.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
