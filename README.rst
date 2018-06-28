@@ -5,8 +5,9 @@ ParseWiki is a Python library that parses Wikipedia pages and saves the page str
 
 I have invested a lot of time and effort in creating this Python script, please cite it when using it in the preparation of a manuscript.
 
+
 Installation
-------------
+============
 
 To install ParseWiki, simply run:
 
