@@ -23,7 +23,7 @@ How it works
 ============
 A new instantiation of the Parser creates an empty container for a specified language (default is English) which allows you to parse a specific page, using a page identifier or title. Moreover, this instantiation allows you to parse this page in all other available languages, or to go back in time and to retrieve all revisions created for this page.
 
-The two examples below imports the wiki library and instantiates the Parse class to use the "Python (Programming Language)" Wiki.
+The two examples below imports the wiki library and instantiates the page class to use the "Python (Programming Language)" Wiki.
 
 .. code:: python
 
