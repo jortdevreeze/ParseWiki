@@ -6,10 +6,11 @@
 from datetime import datetime, timedelta
 from dateutil.parser import parse
 
-import re
 import bs4 as bs
 import requests
+
 import inspect
+import re
   
 class Parse:
     """
@@ -39,6 +40,9 @@ class Parse:
             wiki: The Wiki page identifier, title or a json wiki object (default None).
             lang: The article language which will be used as the default language (default "en").
             ignore: Set to False to raise exeptions, which is helpfull for debugging (default True).
+        
+        Returns:
+            False in case of an error.
 
         Raises:
             ValueError: The json object is not valid.
@@ -62,10 +66,12 @@ class Parse:
                     pageid, languages = self.__extract_metadata(pageid=wiki['id'], title=None, lang=wiki['language'])
                     self._content = wiki
                 else:
-                    raise ValueError("The json object is not valid.")
+                    self.__error(self.__line_no(), 'The json object is not valid.', None)
+                    return False
             
             else:
-                raise ValueError("A valid page identifier or previously saved wiki object must be specified.")
+                self.__error(self.__line_no(), 'A valid page identifier, title, or previously saved wiki object must be specified.', None)
+                return False
             
             if pageid is False:
                 self._content = False
@@ -74,8 +80,9 @@ class Parse:
             self._languages = languages            
                 
         else:
-            raise ValueError("A valid page identifier or previously saved wiki object must be specified.")
-    
+            self.__error(self.__line_no(), 'A valid page identifier or previously saved wiki object must be specified.', None)
+            return False
+            
     def extract(self, lang=None, lists=True):
         """
         Extract content from the current wikipedia page.
