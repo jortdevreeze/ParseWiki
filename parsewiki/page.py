@@ -48,9 +48,7 @@ class Parse:
             ValueError: The json object is not valid.
             ValueError: A valid page identifier or previously saved wiki object must be specified.
         """
-        if ignore is False:
-            self._ignore = False
-        
+               
         if wiki is not None:
             
             if type(wiki) is int:
@@ -67,11 +65,9 @@ class Parse:
                     self._content = wiki
                 else:
                     self.__error(self.__line_no(), 'The json object is not valid.', None)
-                    return False
             
             else:
                 self.__error(self.__line_no(), 'A valid page identifier, title, or previously saved wiki object must be specified.', None)
-                return False
             
             if pageid is False:
                 self._content = False
@@ -81,7 +77,9 @@ class Parse:
                 
         else:
             self.__error(self.__line_no(), 'A valid page identifier or previously saved wiki object must be specified.', None)
-            return False
+          
+        if ignore is False:
+            self._ignore = False
             
     def extract(self, lang=None, lists=True):
         """
